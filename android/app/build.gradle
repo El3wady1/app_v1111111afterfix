@@ -1,0 +1,118 @@
+// plugins {
+//     id "com.android.application"
+//     id "kotlin-android"
+//     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+//     id "dev.flutter.flutter-gradle-plugin"
+// }
+
+// android {
+//     namespace "com.example.inventory"
+//     compileSdk 36
+//     ndkVersion "26.1.10909125"
+
+//     compileOptions {
+//         sourceCompatibility JavaVersion.VERSION_1_8
+//         targetCompatibility JavaVersion.VERSION_1_8
+//         coreLibraryDesugaringEnabled true
+//     }
+
+//     kotlinOptions {
+//         jvmTarget = "1.8"
+//     }
+
+//     defaultConfig {
+//         applicationId "com.example.inventory"
+//         minSdk flutter.minSdkVersion
+//         targetSdk flutter.targetSdkVersion
+//         versionCode flutter.versionCode
+//         versionName flutter.versionName
+//     }
+
+//     buildFeatures {
+//         buildConfig true
+//     }
+
+//     buildTypes {
+//         release {
+//             // استخدم توقيع الـ debug مؤقتاً
+//             signingConfig signingConfigs.debug
+//             minifyEnabled true
+//             shrinkResources true
+//             proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+//         }
+//     }
+// }
+
+// flutter {
+//     source "../.."
+// }
+
+// dependencies {
+// implementation "org.jetbrains.kotlin:kotlin-stdlib:2.1.0"
+//     implementation "androidx.core:core-ktx:1.12.0"
+
+//     // ✅ مكتبة desugar
+//     coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.0.4"
+// }
+
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+android {
+    namespace "com.example.inventory"
+    compileSdk 36
+    ndkVersion "26.1.10909125"
+
+    compileOptions {
+        // 👇 نستخدم Java 17 بدل 1.8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+        coreLibraryDesugaringEnabled true
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    defaultConfig {
+        applicationId "com.example.inventory"
+        minSdk flutter.minSdkVersion
+        targetSdk flutter.targetSdkVersion
+        versionCode flutter.versionCode
+        versionName flutter.versionName
+        multiDexEnabled true
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+}
+
+flutter {
+    source "../.."
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.9.24"
+    implementation "androidx.core:core-ktx:1.12.0"
+    implementation "androidx.multidex:multidex:2.0.1"
+
+    // ✅ لازم تكون 2.1.4 أو أعلى
+    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:2.1.4"
+}
